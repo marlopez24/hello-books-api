@@ -8,9 +8,9 @@ class Book:
         self.description = description
 
 books = [
-    Book(1, "Book A", "Description A"),
-    Book(2, "Book B", "Description B"),
-    Book(3, "Book C", "Description C"),
+    Book(1, "Animal Farm", "Description A"),
+    Book(2, "The Stranger", "Description B"),
+    Book(3, "Persepolis", "Description C"),
 ]
 
 hello_world_bp = Blueprint("hello_world_bp", __name__)
