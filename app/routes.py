@@ -16,3 +16,15 @@ def say_hello_json():
         "message": "Hello!",
         "hobbies": ["Fishing", "Swimming", "Watching Reality Shows"]
     }, 200
+
+
+@hello_world_bp.route("/broken-endpoint-with-broken-server-code", methods=["GET"])
+def broken_endpoint():
+    response_body = {
+        "name": "Ada Lovelace",
+        "message": "Hello!",
+        "hobbies": ["Fishing", "Swimming", "Watching Reality Shows"]
+    }
+    new_hobby = "Surfing"
+    response_body["hobbies"] += new_hobby 
+    return response_body
