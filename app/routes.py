@@ -40,6 +40,8 @@ def handle_book(book_id):
                 "title": book.title,
                 "decsription": book.description
             }
+        if book.id != book_id:
+            return {"message":f"book {book_id} not found"}, 404
 
 @hello_world_bp.route("/hello-world", methods=["GET"])
 def say_hello_world():
