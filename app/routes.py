@@ -30,6 +30,17 @@ def handle_books():
     return jsonify(books_response), 200
 
 
+@books_bp.route("/<book_id>", methods=["GET"])
+def handle_book(book_id):
+    book_id = int(book_id)
+    for book in books:
+        if book.id == book_id:
+            return {
+                "id": book.id,
+                "title": book.title,
+                "decsription": book.description
+            }
+
 @hello_world_bp.route("/hello-world", methods=["GET"])
 def say_hello_world():
     return "Hello, World!"
