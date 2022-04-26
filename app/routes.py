@@ -32,7 +32,10 @@ def handle_books():
 
 @books_bp.route("/<book_id>", methods=["GET"])
 def handle_book(book_id):
-    book_id = int(book_id)
+    try:
+        book_id = int(book_id)
+    except:
+        return {"message":f"book {book_id} invalid"}, 400
     for book in books:
         if book.id == book_id:
             return {
@@ -40,7 +43,7 @@ def handle_book(book_id):
                 "title": book.title,
                 "decsription": book.description
             }
-        if book.id != book_id:
+        if book.id != book_id: # I also dont have to use this. Just using the return statment where the for loop starts
             return {"message":f"book {book_id} not found"}, 404
 
 @hello_world_bp.route("/hello-world", methods=["GET"])
