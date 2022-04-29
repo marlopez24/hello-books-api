@@ -26,7 +26,7 @@ def handle_books():
         description=request_body["description"]
     )
     db.session.add(new_book)
-    db.session.commit
+    db.session.commit()
 
 
     return make_response(f"Book {new_book.title} created"), 201
