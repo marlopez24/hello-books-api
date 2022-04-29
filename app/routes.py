@@ -1,6 +1,7 @@
 
-from os import abort
-from flask import Blueprint, jsonify, abort, make_response
+from app import db
+from app.models.book import Book
+from flask import Blueprint, jsonify, abort, make_response, request
 
 # class Book:
 #     def __init__(self, id, title, description):
@@ -15,6 +16,20 @@ from flask import Blueprint, jsonify, abort, make_response
 # ]
 
 books_bp = Blueprint("books_bp", __name__, url_prefix="/books")
+
+
+@books_bp.route("", methods=["POST"])
+def handle_books():
+    request_body = request.get_json()
+    new_book = Book(
+        title=request_body["title"],
+        description=request_body["description"]
+    )
+    db.session.add(new_book)
+    db.session.commit
+
+
+    return make_response(f"Book {new_book.title} created"), 201
 
 #def validate_book(book_id):
 #    try:
