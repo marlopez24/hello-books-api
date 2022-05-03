@@ -66,6 +66,9 @@ def update_book(book_id):
     book.title = request_body["title"]
     book.description = request_body["description"]
 
+    if book.title or book.description == 0:
+        return make_response(f"Missing attribute! Check each parameter is inputted")
+
     db.session.commit() 
     #always use commit() so that it actually makes the change
     return make_response(f"Book #{book_id} successfully updated")
