@@ -62,12 +62,13 @@ def read_one_book(book_id):
 def update_book(book_id):
     book = validate_book(book_id)
     request_body = request.get_json()
-
-    book.title = request_body["title"]
-    book.description = request_body["description"]
-
-    # if request_body["title"] or request_body["description"] == None:
-        # return make_response(f"Missing attribute! Check each parameter is inputted")
+    try:
+        book.title = request_body["title"]
+        book.description = request_body["description"]
+    except KeyError:
+        return {
+            "msg": "title and description are required"}, 400
+        
 
     db.session.commit() 
     #always use commit() so that it actually makes the change
@@ -81,3 +82,6 @@ def delete_book(book_id):
     db.session.delete(book)
     db.session.commit()
     return make_response(f"Book #{book_id} successfully deleted")
+
+
+#put is changing the entire record whereas a patch is only updating one part, patch can just assign one attribute like only title or only description
