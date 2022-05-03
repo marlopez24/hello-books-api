@@ -17,6 +17,8 @@ def validate_book(book_id):
     if not book:
         abort(make_response({"message":f"book {book_id} not found"}, 404))
     return book
+
+    
         
 #route functions
 @books_bp.route("", methods=["POST"])
@@ -64,5 +66,6 @@ def update_book(book_id):
     book.title = request_body["title"]
     book.description = request_body["description"]
 
-    db.session.commit()
-    return f"Book #{book_id} successfully updated"
+    db.session.commit() 
+    #always use commit() so that it actually makes the change
+    return make_response(f"Book #{book_id} successfully updated")
