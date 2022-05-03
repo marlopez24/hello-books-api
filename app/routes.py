@@ -30,16 +30,17 @@ def read_all_books():
     return jsonify(books_response)
 
 def validate_book(book_id):
-   try:
-       book_id = int(book_id)
-   except:
-       abort(make_response({"message":f"book {book_id} invalid"}, 400))
+    try:
+        book_id = int(book_id)
+    except:
+        abort(make_response({"message":f"book {book_id} invalid"}, 400))
 
-   for book in books:
-       if book.id == book_id:
-           return book
 
-   abort(make_response({"message":f"book {book_id} not found"}, 404))
+    book = Book.query.get(book_id)
+
+    if not book:
+        abort(make_response({"message":f"book {book_id} not found"}, 404))
+    return book
         
 @books_bp.route("/<book_id>", methods=["GET"])
 def handle_book(book_id):
