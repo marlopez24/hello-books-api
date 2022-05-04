@@ -36,7 +36,15 @@ def create_book():
 def read_all_books():
     books_response = []
 
-    title_query = request.args.get("title")
+    title_query = request.args.get("title") #can use any parameter for query request
+    # params = request.args # in this example it is not a function but an attribute instead
+    # if "title" in params:
+    #     book_title = params["title"]   #can use this instead of 'IF' statement below
+    #     books = Book.query.filter_by(title=book_title)
+    # elif "description" in params:
+    #     description_value = params["description"]
+    #     books = Book.query.filter_by(description=description_value)
+
     
     if title_query is not None:
         books = Book.query.filter_by(title=title_query)
