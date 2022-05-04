@@ -4,7 +4,7 @@ from flask import Blueprint, jsonify, make_response, request, abort
 
 books_bp = Blueprint("books_bp", __name__, url_prefix="/books")
 
-#helper function
+#helper function - you do not need to specify any routes here, use abort and make response because this helper function isnt using certain things to create json
 def validate_book(book_id):
     try:
         book_id = int(book_id)
@@ -35,7 +35,14 @@ def create_book():
 @books_bp.route("", methods=["GET"])
 def read_all_books():
     books_response = []
-    books = Book.query.all()
+
+    title_query = request.args.get("title")
+    
+    if title_query is not None:
+        books = Book.query.filter_by(title=title_query)
+    else:
+        books = Book.query.all()
+
     for book in books:
         books_response.append(
             {
@@ -81,7 +88,7 @@ def delete_book(book_id):
 
     db.session.delete(book)
     db.session.commit()
-    return make_response(f"Book #{book_id} successfully deleted")
+    return make_response(f"Book #{book_id} successfully deleted", 200)
 
 
 #put is changing the entire record whereas a patch is only updating one part, patch can just assign one attribute like only title or only description
