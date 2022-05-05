@@ -20,6 +20,16 @@ def test_get_one_book(client, two_saved_books):
         "description": "watr 4evr"
     }
 
+
+def test_get_all_books_records(client, two_saved_books):
+    # Act
+    response = client.get("/books")
+    response_body = response.get_json()
+
+    # Assert
+    assert response.status_code == 200
+    assert len(response_body) == 2
+
 def test_create_one_book(client):
     # Act
     response = client.post("/books", json={
@@ -31,3 +41,13 @@ def test_create_one_book(client):
     # Assert
     assert response.status_code == 201
     assert response_body == "Book New Book successfully created"
+
+
+def test_get_one_book_with_empty_db_returns_404(client):
+    response = client.get("/books/1")
+    assert response.status_code == 404
+
+def test_get_non_existing_book_with_populated_db_returns_404(client):
+    response = client.get("/books/100")
+    assert response.status_code == 404
+
