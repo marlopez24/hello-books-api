@@ -142,7 +142,7 @@ def read_books(author_id):
             "description": book.description
             }
         )
-    return jsonify(books_response)
+    return jsonify(books_response), 200
 
 
 #getting a single author database to read all authors
