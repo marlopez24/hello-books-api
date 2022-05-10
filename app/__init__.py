@@ -11,6 +11,9 @@ load_dotenv()
 def create_app(test_config=None):
     app = Flask(__name__)
 
+    # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    # app.config['SQLALCHEMY_DATABASE_URI'] = postgresql+psycopg2://postgres:postgres@localhost:5432/author
+
     if not test_config:
         app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
         app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
@@ -20,6 +23,8 @@ def create_app(test_config=None):
         app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
         app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get(
             "SQLALCHEMY_TEST_DATABASE_URI")
+
+    
 
     # Import models here
     from app.models.book import Book
