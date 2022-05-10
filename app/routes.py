@@ -157,4 +157,4 @@ def read_all_authors():
                 "name": author.title
             }
         )
-    return jsonify(authors_response)
+    return jsonify(authors_response), 200 
