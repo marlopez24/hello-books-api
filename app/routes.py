@@ -154,7 +154,7 @@ def read_all_authors():
     for author in authors:
         authors_response.append(
             {
-                "name": author.title
+                "name": author.name
             }
         )
     return jsonify(authors_response), 200 
