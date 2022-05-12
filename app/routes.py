@@ -43,13 +43,7 @@ def read_all_books():
 
     books_response = []
     for book in books:
-        books_response.append(
-            {
-                "id": book.id,
-                "title": book.title,
-                "description": book.description
-            }
-        )
+        books_response.append(book.to_dict())
     return jsonify(books_response)
 
 @books_bp.route("/<book_id>", methods=["GET"])
